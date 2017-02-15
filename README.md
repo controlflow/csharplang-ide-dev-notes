@@ -12,16 +12,18 @@ Attempt to collect knowledge useful for C# IDE development
 
 ```c#
 int x = 42;
-string a = "aaa", b;
+string s = "aaa", t;
+ref var ptr = ref …;
 ```
 
-* Participant of multiple declaration
-* Multiple declaration must have explicit type
-* Can have optional (array/expression) initializer
-* Can be implicitly typed with `var` since C# 3.0
-* Classified as a variable (can be used in `ref`/`out` argument)
-* Can be declared as `ref` since C# 7.0
+* Parsed as a part of "declaration statement", participant of multiple declaration
+* Can have optional (expression/array) initializer
+* Can be implicitly typed with `var` since C# 3.0 (multiple declaration must have explicit type)
+* Mutable, classified as a variable (can be `ref`/`out` argument)
+* Can be declared with `ref` modifier since C# 7.0
 * Unused variables can produce compiler warnings
+* Scope: containing block, already in scope of it's initializer
+* Not defenitely assigned from the beginning
 
 ### Constant local variable
 
@@ -30,12 +32,14 @@ const int c = 42;
 const SomeType Null = null;
 ```
 
-* Participant of multiple declaration
-* Immutable, has constant value
-* Can only have explicit type annotations
+* Parsed as a part of "declaration statement", participant of multiple declaration
+* Must have explicit type annotation
 * Must have expression initializer
-* Can have arbitrary reference type (but only `null` as a value)
-TODO: warnings?
+* Immutable, has constant value
+* Can be of arbitrary reference type (but only `null` as a value)
+* Unused contant variable always produces compiler warning
+* Scope: containing block
+* Do not participates in definite assignment analysis
 
 ### Foreach iteration variable
 
@@ -98,6 +102,10 @@ dict.TryGetValue(key, out var value)
 * Can be implicitly typed with `var`
 * Implicit type is received from containing invocation overload resolution results
 
+### Pattern variables
+
+
+
 ### Deconstruction variables
 
 ```c#
@@ -106,16 +114,20 @@ var (a, b) = …;
 (string e, (int f, _)) = …;
 ```
 
-* Represented in syntax tree via "variable designation" ("`a`")
-* Designations are parsed inside "parenthsized designation" ("`(a, b)`") of declaration expression ("`var (a, b)`")
-* Designations also are parsed in declaration expressions "`var c`" in tuple literal arguments `(var c, …)`
+* Represented in syntax tree via "variable designation" — "`a`"
+* Designations are parsed inside "parenthsized designation" "`(a, b)`" of declaration expression "`var (a, b)`"
+* Designations also parsed in declaration expressions "`var c`" in tuple literal arguments "`(var c, …)`"
 * Both tuple literals and parenthsized designations can be nested
 * Mutable, classified as a variable (can be passed as `ref`/`out` argument)
 * Can be implicitly typed with `var`
-* Parenthsized designation version (`var (a, b)`) can't declare type explicitly
+* Parenthsized designation version "`var (a, b)`" can't declare type explicitly
 * Implicit type is received from assignment source expression type (from tuple type or `Deconstruct()` method lookup and checking corresponding `out` parameter type)
 
+## Parameters
 
+### Formal parameters
+
+### 
 
 
 
