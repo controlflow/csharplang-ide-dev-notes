@@ -106,9 +106,9 @@ var (a, b) = …;
 (string e, (int f, _)) = …;
 ```
 
-* Represented in syntax tree via "variable designation"
-* Designations are parsed inside "parenthsized designation" (`(a, b)`) of declaration expression (`var (a, b)`)
-* Designations also are parsed in declaration expressions (`var c`) in tuple literal arguments `(var c, …)`
+* Represented in syntax tree via "variable designation" ("`a`")
+* Designations are parsed inside "parenthsized designation" ("`(a, b)`") of declaration expression ("`var (a, b)`")
+* Designations also are parsed in declaration expressions "`var c`" in tuple literal arguments `(var c, …)`
 * Both tuple literals and parenthsized designations can be nested
 * Mutable, classified as a variable (can be passed as `ref`/`out` argument)
 * Can be implicitly typed with `var`
